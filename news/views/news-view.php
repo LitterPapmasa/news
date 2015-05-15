@@ -15,12 +15,12 @@
         <th colspan="3">Article</th>
     </tr>
     <tr>
-        <?php foreach($data as $key=>$values): ?>
-        <td><?php echo $values['id'];?></td>
-        <td><?php echo $values['header'];?></td>
-        <td><?php echo $values['date'];?></td>
+        <?php foreach($items as $item): ?>
+        <td><?php echo $item->id;?></td>
+        <td><?php echo $item->header;?></td>
+        <td><?php echo $item->date;?></td>
     <tr>
-        <td colspan="3"><?php echo $values['text'];?></td>
+        <td colspan="3"><?php echo $item->text;?></td>
     </tr>
 
     <?php endforeach;?>

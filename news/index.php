@@ -2,7 +2,6 @@
 
 include __DIR__ . "/models/News.php";
 
-$news = new News();
-$data = $news->view();
+$items = News::view();
 
 include __DIR__ . "/views/news-view.php";

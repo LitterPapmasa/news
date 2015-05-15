@@ -23,11 +23,11 @@ class Db
         mysql_close($this->connection);
     }
 
-    public function queryView($sql)
+    public function queryView($sql, $class = "stdClass")
     {
         if ($res =  mysql_query($sql, $this->connection)) {
                 $ids = array();
-                while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
+                while ($row = mysql_fetch_object($res, $class)) {
                     $ids[] = $row;
                 }
                 return $ids;
