@@ -15,3 +15,4 @@ CREATE TABLE IF NOT EXISTS `articles`.`tb_articles`
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
+

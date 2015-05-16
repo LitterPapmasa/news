@@ -20,17 +20,22 @@ class NewsController
             $postData['header'] = Filter::input($_POST['header']);
             $postData['text'] = Filter::input($_POST['text']);
             $postData['date'] = date("Y-m-d H:i:s");
-
-            $news = new News();
+            
+            $view = new View;
+            $news = new News;
             if ($data = $news->insert($postData)) {
-                $message = 'Article "' . $postData['header'] . '" has been added.';
+                $view->assign('message', 'Article "' . $postData['header'] . '" has been added.');
             } else {
-                $message = 'Error. Article hasn\'t been add.';
+                 $view->assign('message', 'Error. Article hasn\'t been add.');
             }
+            
+            $view->render("forms/news-form.php");
 
-            include __DIR__ . "/../views/forms/news-form.php";
+            $this->indexAction();
         } else {
-            include __DIR__ . "/../views/forms/news-form.php";
+            $view = new View;
+            $view->assign('message','Error. Article hasn\'t been add.');
+            $view->render("forms/news-form.php");
         }
     }
 }

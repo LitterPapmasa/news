@@ -2,7 +2,7 @@
 
 class Db
 {
-
+    //Start) Open close connection 
     public $connection;
 
     function __construct($server = 'localhost', $login = 'root', $pass = '1', $db = 'articles')
@@ -18,7 +18,9 @@ class Db
     {
         mysql_close($this->connection);
     }
-
+    //End) Open close connection 
+    
+    //Make query and return array into class or false
     public function queryView($sql, $class = "stdClass")
     {
         if ($res = mysql_query($sql, $this->connection)) {
@@ -31,7 +33,8 @@ class Db
             return false;
         }
     }
-
+    
+    //Make query execution only and return bool
     public function query($sql)
     {
         if ($res = mysql_query($sql, $this->connection)) {

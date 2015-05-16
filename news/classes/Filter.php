@@ -1,6 +1,7 @@
 <?php
 abstract class Filter
 {
+    //light input filter
     public static function input($var, $type = "s")
     {
         switch ($type) {

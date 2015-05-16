@@ -1,15 +1,10 @@
 <?php
 
-class News
+class News extends AArticles
 {
-
     public $id, $header, $text, $date;
-
-    public static function view()
-    {
-        $db = new Db();
-        return $db->queryView('SELECT * FROM tb_articles', "News");
-    }
+    
+    protected static $table = 'tb_articles';
 
     public function insert($posts)
     {
@@ -22,7 +17,7 @@ class News
         $values .= ", '".$posts['text'] . "'";
         $values .= ", '" . $posts['date'] . "'";
         
-        $sql = "INSERT INTO tb_articles VALUES(NULL, " . $values . ")";
+        $sql = "INSERT INTO ".self::$table." VALUES(NULL, " . $values . ")";
         $result = $db->query($sql);
         unset($db);
         return (bool) $result;
