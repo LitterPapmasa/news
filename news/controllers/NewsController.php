@@ -7,8 +7,9 @@ class NewsController
     {
 
         $items = News::view();
-
-        include __DIR__ . "/../views/news/news-view.php";
+        $view = new View;
+        $view->assign('items', $items);
+        $view->render("news/news-view.php");
     }
     
     public function insertAction()
