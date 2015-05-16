@@ -17,7 +17,7 @@
 			<th colspan="3">Article</th>
 		</tr>
 		<tr>
-        <?php foreach($this->data['items'] as $item): ?>
+        <?php foreach($items as $item): ?>
         <td><?php echo $item->id;?></td>
 			<td><?php echo $item->header;?></td>
 			<td><?php echo $item->date;?></td>

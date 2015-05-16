@@ -11,6 +11,11 @@ class View
 
     public function render($viewPath)
     {
+        // assign values from data array to keyname variable
+        foreach($this->data as $key=>$val){
+            $$key = $val;
+        }
+        
         include __DIR__.'/../views/'.$viewPath;
     }
 }
