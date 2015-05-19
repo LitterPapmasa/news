@@ -7,6 +7,8 @@
 <body>
 <a href="<?php echo INDEX_URL.'?ctrl=News&act=index' ?>">home</a>
 <a href="<?php echo INDEX_URL.'?ctrl=News&act=insert' ?>">insert</a>
+<hr>
+
 	<table border="1">
 		<tr>
 			<th>Id</th>

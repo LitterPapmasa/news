@@ -6,6 +6,8 @@ class News extends AArticles
     
     protected static $table = 'tb_articles';
 
+    // public function view() in AArticles
+
     public function insert($posts)
     {
         $db = new Db();
@@ -17,9 +19,10 @@ class News extends AArticles
         $values .= ", '".$posts['text'] . "'";
         $values .= ", '" . $posts['date'] . "'";
         
-        $sql = "INSERT INTO ".self::$table." VALUES(NULL, " . $values . ")";
+        $sql = "INSERT INTO ".self::$table." ";
+        $sql.= "VALUES(NULL, " . $values . ")";
         $result = $db->query($sql);
         unset($db);
-        return (bool) $result;
+        return (bool) $result;        
     }
 }
