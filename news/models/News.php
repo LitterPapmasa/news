@@ -6,6 +6,7 @@ class News extends AArticles
     
     protected static $table = 'tb_articles';
 
+    
     // public function view() in AArticles
 
     public function insert($posts)

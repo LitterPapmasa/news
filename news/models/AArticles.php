@@ -7,8 +7,12 @@ abstract class AArticles
     
     public static function view()
     {
-        $db = new Db();
-        return $db->queryView('SELECT * FROM '.static::$table, "News");
+    	$db = new Db();
+    	$class = get_called_class();    	
+    	$db->className($class);
+    	return $db->queryView('SELECT * FROM ' . static::$table);
     }
+    
+    
     
 }

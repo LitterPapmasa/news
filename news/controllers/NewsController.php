@@ -5,11 +5,15 @@ class NewsController
     
     public function indexAction()
     {
-
-        $items = News::view();
-        $view = new View;
-        $view->items = $items;
-        $view->render("news/news-view.php");
+		$this->viewAction();
+    }
+    
+    public function viewAction()
+    {
+    	$items = News::view();
+    	$view = new View;
+    	$view->items = $items;
+    	$view->render("news/news-view.php");
     }
     
     public function insertAction()

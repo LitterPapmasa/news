@@ -2,8 +2,10 @@
 
 class Db
 {
-    //Start) Open close connection 
-    public $connection;
+    //Start) Open close dbh 
+    public $dbh;
+    
+    private $className = 'StdClass';
 
     function __construct($server = 'localhost', $login = 'root', $pass = '1', $db = 'articles')
     {
@@ -11,39 +13,49 @@ class Db
         $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 
         try {
-            $this->connection = new PDO($dsn, $login, $pass, $options);
-            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->dbh = new PDO($dsn, $login, $pass, $options);
+            $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch ( PDOException $e) {
             // echo $e->getMessage();
-            die('<br>Sorry, database connection problem.');
+            die('<br>Sorry, database dbh problem.');
         }
-
     }
 
     function __destruct()
     {
-        $this->connection = null;
+        $this->dbh = null;
     }
-    //End) Open close connection 
+    //End) Open close dbh 
     
     //Make query and return array into class or false
-    public function queryView($sql, $class = "stdClass")
+	public function queryView($sql, $params = [])    
     {
-        if ($res = $this->connection->query($sql)) {
-            $items = [];
-            while ($row = $res->fetchObject($class)) {
-                $items[] = $row;
-            }
-            return $items;
-        } else {
-            return false;
-        }
+    	$sth = $this->dbh->prepare($sql);
+    	$sth->execute($params);
+    	return	$sth->fetchAll(PDO::FETCH_CLASS, $this->className);
+    
+    	
+//         if ($res = $this->dbh->query($sql)) {
+//             $items = [];
+//             while ($row = $res->fetchObject($class)) {
+//                 $items[] = $row;
+//             }
+//             return $items;
+//         } else {
+//             return false;
+//         }
+    }
+    
+    public function className($class)
+    {
+    	$this->className = $class;
+    	
     }
     
     //Make query execution only and return bool
     public function query($sql)
     {
-        if ($res = $this->connection->query($sql)) {
+        if ($res = $this->dbh->query($sql)) {
             return true;
         } else {
             return false;
