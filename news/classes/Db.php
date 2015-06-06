@@ -38,16 +38,22 @@ class Db
     
     public function className($class)
     {
-    	$this->className = $class;
-    	
+    	$this->className = $class;    	
     }
     
     //!!
-    public function getLastId()
-    {
-    	return $this->className->lastId;
+    public function getLastId($table)
+    {    	
+    	$sql = 'SELECT MAX(id) as id FROM '.$table; 	    	
+    	$sth = $this->dbh->prepare($sql);
+    	$sth->execute([]);
+    	
+    	$id = $sth->fetch();
+    	    	    	
+    	return $id[0];
+    	
     }
-    
+
     //Make query execution only and return bool
     public function query($sql, $params = [])
     {

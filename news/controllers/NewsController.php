@@ -98,6 +98,16 @@ class NewsController
     
     }
     
+    public function deleteAction()
+    {
+    	
+      	$news = new News;        	
+      	$news->delete();    	
+      	   					
+    	$this->viewAction();
+    
+    }
+       
     
 }
 
