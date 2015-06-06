@@ -5,10 +5,7 @@
 <title>Document</title>
 </head>
 <body>
-<a href="<?php echo INDEX_URL.'?ctrl=News&act=index' ?>">home</a>
-<a href="<?php echo INDEX_URL.'?ctrl=News&act=insert' ?>">insert</a>
-<hr>
-
+<?php require_once __DIR__.'/../_header/_menu.php';?>
 	<table border="1">
 		<tr>
 			<th>Id</th>

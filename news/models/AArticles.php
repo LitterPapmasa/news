@@ -9,10 +9,8 @@ abstract class AArticles
     {
     	$db = new Db();
     	$class = get_called_class();    	
-    	$db->className($class);
+    	$db->className($class);    	
     	return $db->queryView('SELECT * FROM ' . static::$table);
     }
-    
-    
     
 }

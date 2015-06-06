@@ -33,17 +33,7 @@ class Db
     	$sth = $this->dbh->prepare($sql);
     	$sth->execute($params);
     	return	$sth->fetchAll(PDO::FETCH_CLASS, $this->className);
-    
-    	
-//         if ($res = $this->dbh->query($sql)) {
-//             $items = [];
-//             while ($row = $res->fetchObject($class)) {
-//                 $items[] = $row;
-//             }
-//             return $items;
-//         } else {
-//             return false;
-//         }
+
     }
     
     public function className($class)
@@ -52,10 +42,17 @@ class Db
     	
     }
     
-    //Make query execution only and return bool
-    public function query($sql)
+    //!!
+    public function getLastId()
     {
-        if ($res = $this->dbh->query($sql)) {
+    	return $this->className->lastId;
+    }
+    
+    //Make query execution only and return bool
+    public function query($sql, $params = [])
+    {
+    	$sth = $this->dbh->prepare($sql);
+        if ($sth->execute($params) != false) {
             return true;
         } else {
             return false;
