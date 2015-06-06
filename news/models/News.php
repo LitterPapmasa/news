@@ -40,12 +40,7 @@ class News extends AArticles
     
     public function update($posts)
     {
-//     	$posts['id'] = "1";
-//     	$posts['header'] = "First ID";
-//     	$posts['text'] = "My TEXT";
-//     	$posts['date'] = date("Y-m-d H:i:s");
-    
-    
+
         $db = new Db();
         if (empty($posts['header']) or empty($posts['text']) 
         		or empty($posts['date']) or empty($posts['id'])) {

@@ -70,25 +70,26 @@ class NewsController
     	$view = new View;
     	 
     	// Get our POST from form news-form.php to array
-    	$postData = $this->getPost();
-    	 
-    	if (!empty($postData['header']) and !empty($postData['text'])) {
-    
+    	$postData = $this->getPost();  	
+
+    	if (empty($postData['header']) or empty($postData['text'])
+    			or empty($postData['id'])) {
+    		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    			$view->message = 'Error. Article hasn\'t been updated.';
+    		
+    		}
+    	} elseif  (!is_numeric($postData['id']) or !Filter::isNumericAdd($postData['id'])) {
+    		$view->message = 'Error. Wrong id! (Integer only)';
+    	} else {
+
     		$postData['date'] = date("Y-m-d H:i:s");
     
     		$news = new News;
     		if ($data = $news->update($postData) !== false) {
-
-    			// add input id in form    			
-    			
+    			// add input id in form    			    			
     			$view->lastId = $news->getLastId();
     			$view->message = 'Article "' . $postData['header'] . '" has been updated.';
     		} else {
-    			$view->message = 'Error. Article hasn\'t been updated.';
-    		}
-    
-    	} else {
-    		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     			$view->message = 'Error. Article hasn\'t been updated.';
     		}
     	}

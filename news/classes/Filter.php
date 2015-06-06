@@ -15,4 +15,16 @@ abstract class Filter
                 return "input filter undefined";
         }
     }
+    
+    public static function isNumericAdd($var)
+    {
+    	$var = (float)$var;
+    	$test1 = explode(".", $var);
+    	
+    	if (isset($test1[1])) {
+    		return false;
+    	} else {
+    		return true;
+    	}
+    }
 }
