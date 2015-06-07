@@ -8,32 +8,36 @@ class NewsController
 		$this->viewAction();
     }
     
-    
-    public function viewAction()
-    {
-    	$items = News::view();
-    	$view = new View;
-    	
-    	$view->items = $items;    	
-    	
-    	$view->render("news/news-view.php");
-    }
-    
-    
     public function getPost()
     {
     	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    		
+    
     		$postData = [];
-    		foreach ($_POST as $key=>$value){    			
+    		foreach ($_POST as $key=>$value){
     			$postData[$key] = Filter::input($value);
     		}
     		return $postData;
     	} else {
     		return false;
     	}
-    		 
     }
+
+    // CRUD ACTIONS start =====================================================
+    public function viewAction()
+    {
+    	$posts = $this->getPost();
+    	if (!empty($posts['column']) or !empty($posts['searchValue']) 
+    			or $posts['searchValue'] == '0') {
+    		$items = News::findByColumn($posts['column'], $posts['searchValue']);
+    	} else {    		
+    		$items = News::view();
+    	}
+    	$view = new View;
+    	$view->items = $items;    	
+    	
+    	$view->render("news/news-view.php");
+    }
+         
     
     
     public function insertAction()
@@ -107,7 +111,9 @@ class NewsController
     	$this->viewAction();
     
     }
-       
+    // CRUD ACTIONS end =====================================================   
+
+    
     
 }
 

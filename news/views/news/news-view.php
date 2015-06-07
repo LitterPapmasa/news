@@ -6,6 +6,17 @@
 </head>
 <body>
 <?php require_once __DIR__.'/../_header/_menu.php';?>
+
+<form action="<?=INDEX_URL.'?ctrl=News&act=view' ?>" method="POST">
+	<select name="column">
+		<option value="id">id</option>
+		<option selected value="header">header</option>		
+		<option value="text">text</option>	 	
+	</select>
+	<input type="text" name="searchValue" />
+	<input type="submit" value="search"/>
+</form>
+
 	<table border="1">
 		<tr>
 			<th>Id</th>

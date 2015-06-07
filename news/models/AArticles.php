@@ -25,6 +25,7 @@ abstract class AArticles
     		return static::$lastId;
     	}
     }
+    // ** CRUD start ===========================================
     
     public static function view()
     {
@@ -71,15 +72,20 @@ abstract class AArticles
     				return false;
     			}
     
-    	$vars = implode(', ', array_keys($posts));
+    	
     	$valsArray = [];
+    	$setValues = [];
     	foreach ($posts as $key=>$value){
-    	$valsArray[':'.$key] = $value;
+    		$valsArray[':'.$key] = $value;
+    		$setValues[$key] = $key."=:".$key;
     	}
+    	unset($setValues['id']);
+    	$setValuesStr = implode(', ', array_keys($setValues));
+    	
     	// names like ":header, :text, ..."
     	$varNames = implode(', ', array_keys($valsArray));
     	$sql = "UPDATE ".static::$table." ";
-    	$sql.= "SET header=:header, text=:text, date=:date WHERE id=:id";
+    	$sql.= "SET " . $setValuesStr . " WHERE id=:id";
       	$result = $db->query($sql, $valsArray);
     	static::$lastId = $db->dbh->lastInsertId();
     	 
@@ -90,7 +96,6 @@ abstract class AArticles
     
     public function delete()
     {
-    
     	$db = new Db();
     	    	 
     	$sql = "DELETE FROM ".static::$table." ";
@@ -101,5 +106,21 @@ abstract class AArticles
 		return (bool) $result;
     
     }
+    // ** CRUD end =====================================
     
+    
+    public static function findByColumn($column, $value)
+    {
+    	//$column = 'header';
+    	//$value = 'News 3';
+    	
+    	$db = new Db();
+    	$db->className(get_called_class());
+    	
+    	$sql="SELECT * FROM " . static::$table . " WHERE ";
+    	$sql.= $column . " LIKE :" . $column;
+    	    
+    	$res = $db->queryView($sql,[$column => "%".$value."%"]);
+    	return $res;
+    }
 }
