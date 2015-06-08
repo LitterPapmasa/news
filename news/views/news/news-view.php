@@ -7,7 +7,7 @@
 <body>
 <?php require_once __DIR__.'/../_header/_menu.php';?>
 
-<form action="<?=INDEX_URL.'?ctrl=News&act=view' ?>" method="POST">
+<form action="<?=INDEX_URL.'/News/view' ?>" method="POST">
 	<select name="column">
 		<option value="id">id</option>
 		<option selected value="header">header</option>		

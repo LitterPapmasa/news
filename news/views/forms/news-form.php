@@ -1,9 +1,9 @@
 <?php require_once __DIR__.'/../_header/_menu.php';?>
 
 <?php if(isset($update) and $update === true) {
-			$action =  INDEX_URL.'?ctrl=News&act=update';
+			$action =  INDEX_URL.'/News/update';
 	  	} else {
-		  	$action = INDEX_URL.'?ctrl=News&act=insert';
+		  	$action = INDEX_URL.'/News/insert';
 	  	}
 ?>
 <h3>
