@@ -45,6 +45,12 @@ class AuthController {
 				
 	}
 	
+	public function cookAction()
+	{
+		$auth = new Auth;
+		$auth->setCookie('litter');		
+	}
+	
 	public function logoutAction()
 	{
 		$auth = new Auth();

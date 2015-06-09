@@ -40,7 +40,7 @@ class Auth
     public function setCookie($login)
     {
         setcookie("user", $login, time() + 84000);
-        setcookie("userId",calcId($login) , time() + 84000);
+        setcookie("userId",$this->calcId($login) , time() + 84000);
     }
 
     public function unsetCookieAuth() {
