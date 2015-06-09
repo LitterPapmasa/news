@@ -7,25 +7,11 @@ class NewsController
     {
 		$this->viewAction();
     }
-    
-    public function getPost()
-    {
-    	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
-    		$postData = [];
-    		foreach ($_POST as $key=>$value){
-    			$postData[$key] = Filter::input($value);
-    		}
-    		return $postData;
-    	} else {
-    		return false;
-    	}
-    }
 
     // CRUD ACTIONS start =====================================================
     public function viewAction()
     {
-    	$posts = $this->getPost();
+    	$posts = Request::getPost();
     	if (!empty($posts['column']) or !empty($posts['searchValue']) 
     			or $posts['searchValue'] == '0') {
     		$items = News::findByColumn($posts['column'], $posts['searchValue']);
@@ -44,8 +30,13 @@ class NewsController
     {	
     	$view = new View;
     	
+    	if (false == Auth::checkLoginActive()){
+    		$view->render('forms/auth-form.php');
+    		exit;
+    	}
+    	
     	// Get our POST from form news-form.php to array
-    	$postData = $this->getPost();
+    	$postData = Request::getPost();
     	
     	if (!empty($postData['header']) and !empty($postData['text'])) {
             
@@ -74,7 +65,7 @@ class NewsController
     	$view = new View;
     	 
     	// Get our POST from form news-form.php to array
-    	$postData = $this->getPost();  	
+    	$postData = Request::getPost();  	
 
     	if (empty($postData['header']) or empty($postData['text'])
     			or empty($postData['id'])) {
