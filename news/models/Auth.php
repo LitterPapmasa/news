@@ -2,50 +2,60 @@
 
 class Auth
 {
-    protected $login, $pass;
-
+	protected static $yes = false;
+	
     protected static $userList = [
             'litter'=>'123',
             'user'=>'1'
     ];
 
 
-    public function check($login, $pass)
+    public static function check($login, $pass)
     {
-        return !empty($login) and (self::$userList[$login] == $pass);
+         $res = (!empty($login) and (self::$userList[$login] == $pass));
+         return $res;
     }
 
-    public function calcId($login)
+    public static function calcId($login)
     {
-        return md5($login.md5('pass'));
+        if (false !== ($res = md5($login.md5('pass')))) {
+        	return $res;
+        } else {
+        	return false;
+        }
     }
 
     public static function checkLoginActive()
     {
+    	if (false !== self::$yes) return true;
+    	
         if (isset($_COOKIE['user']) and
                 isset($_COOKIE['userId'])) {
             $login = $_COOKIE['user'];
             $id = $_COOKIE['userId'];
-            $res =  (array_key_exists($login, self::$userList) 
-            		and $id == $this->calcId($login));
-            var_dump($res);
-            die;
-            return (bool)$res;
+            if ($res = (array_key_exists($login, self::$userList) 
+            	  		and $id == self::calcId($login))) {
+            	self::$yes = true;            	 
+            }            
+            return $res;
         } else {
         	return false;
         }
     }
 
 
-    public function setCookie($login)
+    public static function setCookie($login)
     {
         setcookie("user", $login, time() + 84000);
-        setcookie("userId",$this->calcId($login) , time() + 84000);
+        setcookie("userId",self::calcId($login) , time() + 84000 );
+        self::$yes = true;
     }
+    
 
-    public function unsetCookieAuth() {
+    public static function unsetCookieAuth() {
         setcookie("user", '', 1);
         setcookie("userId", '', 1);
+        self::$yes = false;
     }
 
 }

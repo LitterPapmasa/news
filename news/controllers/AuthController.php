@@ -10,33 +10,37 @@ class AuthController {
 	public function loginAction()
 	{
 		$view = new View;
-		$news = new NewsController();
 		
 		if (false !== Auth::checkLoginActive()){
-			var_dump("auth ok");
-			$news->indexAction();			
+			header("Location: " . INDEX_URL . "/news/insert");			
 			exit;
 		}
 		
 		if (false !== ($posts = Request::getPost())) {
-			$errors = [];
+			$errors = [
+					'login'=>'',
+					'pass'=>''	
+			];
 			
-			if (empty($posts['login']) and $posts['login'] !== '0') {
+			var_dump('login:'.$posts['login'].'<br>');
+			var_dump('pass:'.$posts['pass']);
+			if (empty($posts['login'])) {
 				$errors['login'] = "Не заполнено поле \"login\"";
 			}
-			if (empty($posts['pass']) and $posts['pass'] !== '0') {
+			if (empty($posts['pass'])) {
 				$errors['pass'] = "Не заполнено поле \"password\"";
 			}
-			if (!isset($errors['login']) or !isset($errors['pass'])){
+			if (!empty($errors['login']) or !empty($errors['pass'])){
 					
 				$view->message = $errors['login'] . '<br>' . $errors['pass'];
 				$view->render('forms/auth-form.php');
-			} else {
-				$auth = new Auth();
-				var_dump("auth 2");
-				if (false !== $auth->check($posts['login'], $posts['pass'])) {
-					$auth->setCookie($posts['login']);
-					$news->indexAction();
+			} else {	
+				
+				if (false !== Auth::check($posts['login'], $posts['pass'])) {
+					Auth::setCookie($posts['login']);
+					var_dump("auth 2");
+					header("Location: " . INDEX_URL . "/news/insert");								
+					exit;	
 				} else {
 					$view->render('forms/auth-form.php');
 				}								
@@ -49,6 +53,12 @@ class AuthController {
 	{
 		$auth = new Auth;
 		$auth->setCookie('litter');		
+	}
+	
+
+	public function iscookAction()
+	{
+		var_dump(Auth::checkLoginActive());		
 	}
 	
 	public function logoutAction()

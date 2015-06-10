@@ -1,3 +1,4 @@
+<?php header('Content-Type: text/html; charset=utf-8')?>
 <div>
 	<a href="<?php echo INDEX_URL.'/News/index' ?>">home</a>
 	<a href="<?php echo INDEX_URL.'/News/insert' ?>">insert</a>
