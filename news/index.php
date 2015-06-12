@@ -1,5 +1,6 @@
 <?php
 
+
 $folderPath = explode('/',$_SERVER['PHP_SELF']);
 array_pop($folderPath);
 
@@ -14,6 +15,8 @@ require_once __DIR__.'/autoload.php';
 
 (!empty($ctrl)) ? $ctrl = ucfirst(strtolower($ctrl)) : $ctrl = 'News';
 (!empty($act)) ? $act = ucfirst(strtolower($act)) : $act = 'index';
+
+Auth::start();
 
 $controllerClassName = $ctrl.'Controller';
 $controller = new $controllerClassName;

@@ -1,27 +1,28 @@
 <?php
- 
+
 class AuthController {
 
 	public function indexAction()
 	{
-		$this->loginAction();	
+		$this->loginAction();
 	}
-	
+
 	public function loginAction()
 	{
 		$view = new View;
-		
+
 		if (false !== Auth::checkLoginActive()){
+		    var_dump('Autorithation ok already');
+		    
 			header("Location: " . INDEX_URL . "/news/insert");			
-			exit;
 		}
-		
+
 		if (false !== ($posts = Request::getPost())) {
 			$errors = [
 					'login'=>'',
-					'pass'=>''	
+					'pass'=>''
 			];
-			
+
 			var_dump('login:'.$posts['login'].'<br>');
 			var_dump('pass:'.$posts['pass']);
 			if (empty($posts['login'])) {
@@ -31,39 +32,39 @@ class AuthController {
 				$errors['pass'] = "Не заполнено поле \"password\"";
 			}
 			if (!empty($errors['login']) or !empty($errors['pass'])){
-					
+
 				$view->message = $errors['login'] . '<br>' . $errors['pass'];
 				$view->render('forms/auth-form.php');
-			} else {	
-				
+			} else {
+
 				if (false !== Auth::check($posts['login'], $posts['pass'])) {
 					Auth::setCookie($posts['login']);
-					var_dump("auth 2");
-					header("Location: " . INDEX_URL . "/news/insert");								
-					exit;	
+					var_dump('Autorithation ok');
+
+					exit;
 				} else {
 					$view->render('forms/auth-form.php');
-				}								
+				}
 			}
 		}
-				
+
 	}
-	
+
 	public function cookAction()
 	{
 		$auth = new Auth;
-		$auth->setCookie('litter');		
+		$auth->setCookie('litter');
 	}
-	
+
 
 	public function iscookAction()
 	{
-		var_dump(Auth::checkLoginActive());		
+		var_dump(Auth::checkLoginActive());
 	}
-	
+
 	public function logoutAction()
 	{
-		$auth = new Auth();
-		$auth->unsetCookieAuth();
+
+		Auth::unsetCookieAuth();
 	}
 }

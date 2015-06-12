@@ -111,8 +111,6 @@ abstract class AArticles
     
     public static function findByColumn($column, $value)
     {
-    	//$column = 'header';
-    	//$value = 'News 3';
     	
     	$db = new Db();
     	$db->className(get_called_class());

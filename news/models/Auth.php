@@ -9,7 +9,11 @@ class Auth
             'user'=>'1'
     ];
 
-
+	public static function start()
+	{
+		session_start();
+	}
+	
     public static function check($login, $pass)
     {
          $res = (!empty($login) and (self::$userList[$login] == $pass));
@@ -27,15 +31,18 @@ class Auth
 
     public static function checkLoginActive()
     {
-    	if (false !== self::$yes) return true;
+    	if (isset($_SESSION['auth']) and  $_SESSION['auth'] === 'set') {
+    		return true;
+    	}
     	
+    	// check cookies set
         if (isset($_COOKIE['user']) and
                 isset($_COOKIE['userId'])) {
             $login = $_COOKIE['user'];
             $id = $_COOKIE['userId'];
             if ($res = (array_key_exists($login, self::$userList) 
             	  		and $id == self::calcId($login))) {
-            	self::$yes = true;            	 
+            	  			var_dump('chekLogin_cookie_ok');           	
             }            
             return $res;
         } else {
@@ -46,16 +53,17 @@ class Auth
 
     public static function setCookie($login)
     {
-        setcookie("user", $login, time() + 84000);
-        setcookie("userId",self::calcId($login) , time() + 84000 );
-        self::$yes = true;
+    	$_SESSION['auth'] = 'set';
+        setcookie("user", $login, time() + 84000, "/" );
+        setcookie("userId",self::calcId($login) , time() + 84000, "/" );        
     }
     
 
     public static function unsetCookieAuth() {
-        setcookie("user", '', 1);
-        setcookie("userId", '', 1);
-        self::$yes = false;
+    	unset($_SESSION['auth']);
+        setcookie("user", '', 1, "/");
+        setcookie("userId", '', 1, "/");
+        
     }
 
 }

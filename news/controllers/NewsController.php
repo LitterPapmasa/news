@@ -24,8 +24,7 @@ class NewsController
     	$view->render("news/news-view.php");
     }
          
-    
-    
+ 
     public function insertAction()
     {	
     	$view = new View;
