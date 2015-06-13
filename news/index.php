@@ -1,5 +1,6 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 $folderPath = explode('/',$_SERVER['PHP_SELF']);
 array_pop($folderPath);

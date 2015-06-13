@@ -13,7 +13,7 @@ class AuthController {
 
 		if (false !== Auth::checkLoginActive()){
 		    var_dump('Autorithation ok already');
-		    
+		    echo "Location: " . INDEX_URL . "/news/insert";
 			header("Location: " . INDEX_URL . "/news/insert");			
 		}
 
@@ -23,8 +23,6 @@ class AuthController {
 					'pass'=>''
 			];
 
-			var_dump('login:'.$posts['login'].'<br>');
-			var_dump('pass:'.$posts['pass']);
 			if (empty($posts['login'])) {
 				$errors['login'] = "Не заполнено поле \"login\"";
 			}
@@ -39,32 +37,22 @@ class AuthController {
 
 				if (false !== Auth::check($posts['login'], $posts['pass'])) {
 					Auth::setCookie($posts['login']);
-					var_dump('Autorithation ok');
-
+					header("Location: " . INDEX_URL);
 					exit;
 				} else {
 					$view->render('forms/auth-form.php');
 				}
 			}
+		} else {
+			$view->render('forms/auth-form.php');
 		}
 
 	}
 
-	public function cookAction()
-	{
-		$auth = new Auth;
-		$auth->setCookie('litter');
-	}
-
-
-	public function iscookAction()
-	{
-		var_dump(Auth::checkLoginActive());
-	}
-
 	public function logoutAction()
 	{
-
 		Auth::unsetCookieAuth();
+		header("Location: " . INDEX_URL);
+		exit;
 	}
 }

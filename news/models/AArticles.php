@@ -21,7 +21,6 @@ abstract class AArticles
     		// For queryView
     		$db->className(get_called_class());
     		static::$lastId = $db->getLastId(static::$table);
-    		var_dump('haha');
     		return static::$lastId;
     	}
     }
@@ -77,16 +76,18 @@ abstract class AArticles
     	$setValues = [];
     	foreach ($posts as $key=>$value){
     		$valsArray[':'.$key] = $value;
+    		if  ($key == 'id') {
+    			continue;
+    		}
     		$setValues[$key] = $key."=:".$key;
-    	}
-    	unset($setValues['id']);
-    	$setValuesStr = implode(', ', array_keys($setValues));
+    	}    	
     	
     	// names like ":header, :text, ..."
     	$varNames = implode(', ', array_keys($valsArray));
     	$sql = "UPDATE ".static::$table." ";
-    	$sql.= "SET " . $setValuesStr . " WHERE id=:id";
-      	$result = $db->query($sql, $valsArray);
+    	$sql.= "SET " . implode(', ', $setValues) . " WHERE id=:id";
+    	
+    	$result = $db->query($sql, $valsArray);
     	static::$lastId = $db->dbh->lastInsertId();
     	 
     	unset($db);

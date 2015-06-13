@@ -7,7 +7,7 @@ class NewsController
     {
 		$this->viewAction();
     }
-
+    
     // CRUD ACTIONS start =====================================================
     public function viewAction()
     {
@@ -28,11 +28,8 @@ class NewsController
     public function insertAction()
     {	
     	$view = new View;
-    	
-    	if (false == Auth::checkLoginActive()){
-    		$view->render('forms/auth-form.php');
-    		exit;
-    	}
+    	        	
+    	Auth::authOnly($view);
     	
     	// Get our POST from form news-form.php to array
     	$postData = Request::getPost();
@@ -62,7 +59,7 @@ class NewsController
     public function updateAction()
     {
     	$view = new View;
-    	 
+    	Auth::authOnly($view);
     	// Get our POST from form news-form.php to array
     	$postData = Request::getPost();  	
 
@@ -70,7 +67,6 @@ class NewsController
     			or empty($postData['id'])) {
     		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     			$view->message = 'Error. Article hasn\'t been updated.';
-    		
     		}
     	} elseif  (!is_numeric($postData['id']) or !Filter::isNumericAdd($postData['id'])) {
     		$view->message = 'Error. Wrong id! (Integer only)';
@@ -94,6 +90,8 @@ class NewsController
     
     public function deleteAction()
     {
+    	$view = new View;
+    	Auth::authOnly($view);
     	
       	$news = new News;        	
       	$news->delete();    	

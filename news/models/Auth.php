@@ -15,9 +15,13 @@ class Auth
 	}
 	
     public static function check($login, $pass)
-    {
-         $res = (!empty($login) and (self::$userList[$login] == $pass));
-         return $res;
+    {	
+    	if (empty($login) !== false or !isset(self::$userList[$login]) ) {
+    		return false;
+    	} else {
+        	 $res = (!empty($login) and (self::$userList[$login] == $pass));
+         	return $res;
+    	}
     }
 
     public static function calcId($login)
@@ -64,6 +68,16 @@ class Auth
         setcookie("user", '', 1, "/");
         setcookie("userId", '', 1, "/");
         
+    }
+    
+    public static function authOnly(View $view)
+    {
+    	if (false == Auth::checkLoginActive()){
+    		$view->render('forms/auth-form.php');
+    		exit;
+    	} else {
+    		return false;
+    	}
     }
 
 }
