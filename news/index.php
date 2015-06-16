@@ -27,8 +27,6 @@ try {
 	$action = $act.'Action';
 	$controller->$action();
 
-} catch (Exception $e) {
-    var_dump("!");
+} catch (Exception $e) {	
     $error = new ErrorController($e);
-
 }
