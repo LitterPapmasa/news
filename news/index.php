@@ -12,14 +12,23 @@ $relPathArray = array_diff_assoc($currentPath, $folderPath);
 $ctrl = current($relPathArray);
 $act = next($relPathArray);
 
-require_once __DIR__.'/autoload.php';
 
 (!empty($ctrl)) ? $ctrl = ucfirst(strtolower($ctrl)) : $ctrl = 'News';
 (!empty($act)) ? $act = ucfirst(strtolower($act)) : $act = 'index';
 
-Auth::start();
 
 $controllerClassName = $ctrl.'Controller';
-$controller = new $controllerClassName;
-$action = $act.'Action';
-$controller->$action();
+try {
+
+    require_once __DIR__.'/autoload.php';
+    Auth::start();
+
+	$controller = new $controllerClassName;
+	$action = $act.'Action';
+	$controller->$action();
+
+} catch (Exception $e) {
+    var_dump("!");
+    $error = new ErrorController($e);
+
+}
