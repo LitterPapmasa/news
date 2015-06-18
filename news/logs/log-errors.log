@@ -2,3 +2,24 @@
 2015-06-16 08:38:29 | Page not found!
 2015-06-16 08:38:35 | Page not found!
 2015-06-16 08:42:52 | Page not found!
+2015-06-16 14:46:41 | Page not found!
+2015-06-16 14:46:46 | Page not found!
+2015-06-16 14:46:50 | Page not found!
+2015-06-16 14:46:52 | Page not found!
+2015-06-16 14:46:55 | Page not found!
+2015-06-16 15:03:02 | Page not found!
+2015-06-16 15:03:05 | Page not found!
+2015-06-16 15:06:29 | Page not found!
+2015-06-16 15:13:28 | Page not found!
+2015-06-16 18:19:11 |  | Empty $postData [text and header]
+2015-06-16 18:28:04 | Error. Article hasn't been add. | Empty $postData [text and header]
+2015-06-16 18:28:24 | Error. Article hasn't been add. | Empty $postData [text and header]
+2015-06-16 18:28:30 | Error. Article hasn't been add. | Empty $postData [text and header]
+2015-06-16 18:33:01 | Error. Article hasn't been add. | Empty $postData [text and header]
+2015-06-16 18:33:45 | Error. Article hasn't been add. | Empty $postData [text and header]
+2015-06-16 18:33:46 | Error. Article hasn't been add. | Empty $postData [text and header]
+2015-06-16 18:33:47 | Error. Article hasn't been add. | Empty $postData [text and header]
+2015-06-16 18:33:50 | Error. Article hasn't been add. | Empty $postData [text and header]
+2015-06-16 18:33:53 | Error. Article hasn't been add. | Empty $postData [text and header]
+2015-06-18 06:04:25 | Error. Wrong id! (Integer only) | $news->update error, id is not numeric
+2015-06-18 06:06:19 | Error. Wrong id! (Integer only) | $news->update error, id is not numeric

@@ -16,20 +16,15 @@ class ErrorController
 
     public function __construct(Exception $e)
     {
-    	$log = new LogController();
+
     	$codeError = $e->getMessage();
-        switch ($codeError) {        	
-            case '404' : $errorMessage = 'Page not found!';
-            			 $log->addError($errorMessage);  
-            			 $this->error404Action() ;
-            			 exit;            			 
+        switch ($codeError) {
+            case '404' : Log::write('Page not found!');
+            			 $this->error404Action();
+            			 exit;
             	break;
-            case '1' : $errorMessage = 'LogController.php file doesn\'t exist';
-            	       $log->addError($errorMessage); 
-           		break;
-            default : $errorMessage = 'Error undefined';
-            		  $log->addError($errorMessage);            
-            break;
+            default : Log::write('Error undefined');
+                break;
         }
 
 		$view = new View();

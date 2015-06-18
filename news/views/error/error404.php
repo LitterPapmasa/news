@@ -5,6 +5,6 @@
 	<title>Error</title>
 </head>
 <body>
-   <h1>page cannot be found :(</h1>
+   <h1>Error 404. Page cannot be found :(</h1>
 </body>
 </html>

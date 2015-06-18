@@ -1,6 +1,13 @@
 <?php // header('Content-Type: text/html; charset=utf-8')?>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
 
-html:5
+</head>
+
+</body>
+</html>
 <div>
 	<a href="<?php echo INDEX_URL.'/news/index' ?>">home</a>
 	<?php if (Auth::checkLoginActive() !== false):?>
